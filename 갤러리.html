@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width: 700px;
+            height: 600px;
+            position: relative;
+            margin: auto;
+            border: 5px solid black;
+        }
+
+        #menu{
+            display: inline-block;
+            width: 150px;
+            height: 100%;
+            position:relative;
+            overflow: scroll;
+        }
+
+        #menu img{
+            width: 120px;
+            height: 120px;
+            border: 3px solid black;
+            box-sizing: border-box;
+        }
+
+        .content{
+            display: inline-block;
+            width: 550px;
+            height: 100%;
+            position: absolute;
+            left: 150px;
+        }
+        .content img{
+            width:450px;
+            height: 450px;
+            padding: 50px;
+        }
+    </style>
+
+    <script>
+        var n;
+
+        function init(){
+            var menu = document.getElementById("menu");
+
+            for(var i = 1; i<=10; i++){
+                var img = document.createElement("img");
+                img.src = "../img/"+i+".png";
+                menu.appendChild(img);
+                img.click(setImage(i));
+             }
+        }
+
+        function setImage(n){
+            //큰 상세이미지의 src를 선택한 썸네일과 동일한 이미지 주소로 교체하자
+            var detail = document.querySelector(".content img");
+            detail.src="../img/"+n+".png";
+        }
+    </script>
+</head>
+<body onLoad = "init()">
+    <div id = "wrapper">
+            <!-- <div id = "first" onclick = "setImage(1)" src = "../img/1.png"/>
+            <div id = "second" onclick = "setImage(2)" src = "../img/2.png"/>
+            <div id = "third" onclick = "setImage(3)" src = "../img/3.png"/>
+            <div id = "fourth" onclick = "setImage(4)" src = "../img/4.png"/> -->
+            <div id ="menu">
+                <!-- <img onclick = "setImage(1)" src = "../img/1.png"/>
+                <img onclick = "setImage(2)" src = "../img/2.png"/>
+                <img onclick = "setImage(3)" src = "../img/3.png"/>
+                <img onclick = "setImage(4)" src = "../img/4.png"/>
+                <img onclick = "setImage(5)" src = "../img/5.png"/>
+                <img onclick = "setImage(6)" src = "../img/6.png"/>
+                <img onclick = "setImage(7)" src = "../img/7.png"/>
+                <img onclick = "setImage(8)" src = "../img/8.png"/>
+                <img onclick = "setImage(9)" src = "../img/9.png"/>
+                <img onclick = "setImage(10)" src = "../img/10.png"/> -->
+            </div>
+        <div class = "content" >
+            <img src ="../img/2.png" />
+        </div>
+    </div>
+</body>
+</html>

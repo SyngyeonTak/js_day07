@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width: 400px;
+            height: 400px;
+            background: yellow;
+            border: 1px solid black;
+            margin: auto;
+            position: relative;
+
+        }
+        select{
+            width: 100%;
+            height: 50px;
+            background: dodgerblue;
+            color: white;
+            font-size: 30px;
+        }
+        #result{
+            width: 100%;
+            height: 350px;
+            background: pink;
+            position: absolute;
+            top: 50px;
+        }
+        
+    </style>
+    <script>
+        function setColor(){
+            //문서 내에 select 박스에 현재 선택된 값을 추출해보자
+            var sel = document.getElementById("sel");
+            var color = document.getElementById("result");
+            color.style.background = sel.value;
+        }
+
+        //이번엔 this를 이용해보자
+        function setColor2(c){
+            var color = document.getElementById("result");
+            color.style.background = c;
+        }
+
+    </script>
+</head>
+<body>
+    <div id = "wrapper">
+        <select id = "sel" onChange = "setColor2(this.value)">
+            <option value="red">red</option>
+            <option value="orange">orange</option>
+            <option value="yellow">yellow</option>
+            <option value="green">green</option>
+            <option value="blue">blue</option>
+            <option value="navy">navy</option>
+            <option value="purple">purple</option>
+        </select>
+        <div id = "result">
+
+        </div>
+    </div>
+</body>
+</html>

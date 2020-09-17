@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrapper{
+            width: 70%;
+            height: 200px;
+            border: 10px solid red;
+            margin: auto;
+            font-size: 30px;
+        }
+
+        input[type='text']{
+            width: 20%;
+            height: 100px;
+            font-size:80px;
+            text-align: right;
+        }
+        button{
+            width: 15%;
+            height: 40px;
+            border: 0px;
+            color: red;
+            font-weight: bold;
+            background: chartreuse;
+        }
+    </style>
+    <script>
+        var sec;
+        var min;
+        var hour;
+        var bt_start;
+        var bt_pause;
+        var bt_reset;
+
+        var ss = 0;//초를 누적시킬 전역변수
+        var mm = 0;
+        var hh = 0;
+
+        var st; //setInterval을 가리키기 위한 변수
+        var flag = true;
+        
+        window.addEventListener("load", function(){
+            init();
+        });
+
+        //초기화: 프로그램 시작과 동시에 해야할 작업을 처리하는 함수
+        function init(){
+            //초 영역에 0을 초기값으로 부여..
+            hour = document.getElementById("hour");
+            min = document.getElementById("min");
+            sec = document.getElementById("sec");
+            sec.value = ss;
+            hour.value =mm;
+            min.value = hh;
+        
+            //문서내의 bt_start 라는 요소에 동적 이벤트 처리
+            //문서내의 bt_pause 라는 요소에 동적 이벤트 처리
+            //문서내의 bt_reset 라는 요소에 동적 이벤트 처리
+            bt_start = document.getElementById("bt_start");
+            bt_pause = document.getElementById("bt_pause");
+            bt_reset = document.getElementById("bt_reset");
+
+            bt_start.addEventListener("click", function(){
+                //1)제 3자 입장에서 바라보는 관점 제어
+                //bt_start.style.background = "red";
+                //2)버튼의 입장에서 스스로를 제어
+                //this.style.backtound = "red";
+
+                //여기서 코드를 짜면, 추후 자동화 함수가 호출할 수 있는 단위가
+                //아니기 때문에... 별도의 함수로 정의하자~!!
+               auto();
+               bt_start.disabled = true;
+            });
+
+            bt_pause.addEventListener("click", function(){
+                
+                flag = !flag;
+                if(flag){
+                    this.innerText = "Pause";
+                }else{
+                    this.innerText = "▶";
+                }
+                
+                
+                
+            });
+
+            bt_reset.addEventListener("click", function(){
+                //clearTimeout(멈출대상setInerval);//인수(매개변수)로 전달한 자동화 함수를 멈춘다.
+                clearTimeout(st);
+                ss = 0;
+                mm = 0;
+                hh = 0;
+                sec.value = 0;
+                min.value = 0;
+                hour.value = 0;
+                flag = true;//처음상태로 돌려 놓자
+                bt_start.diabled = false;
+            });
+            
+        }
+
+        //초단위를 1씩 증가시켜본다.
+        function timer(){
+            if(flag){
+                ss++;
+                sec.value = ss;
+
+                if(ss == 60){
+                    mm++;
+                    ss = 0;
+                    sec.value =0;
+                    min.value = mm;
+                }
+                if(mm == 60){
+                    hh++;
+                    mm = 0;
+                    min.value = 0;
+                    hour.value = hh;
+                }
+            }
+        }
+
+       function auto(){
+            st = setInterval("timer()", 1000);//자동화함수 가동후,
+                                                                //함수를 가리킬 수 있는 변수로
+                                                                //대입
+       }
+
+        function pause(){
+        }
+
+    </script>
+</head>
+<body>
+    <div class = "wrapper">
+        <input type = "text" id = "hour"/>시
+        <input type = "text" id = "min"/>분
+        <input type = "text" id = "sec"/>초
+        <button id = "bt_start">시작</button>
+        <button id = "bt_pause">Pause</button>
+        <button id = "bt_reset">Reset</button>
+    </div>
+</body>
+</html>
